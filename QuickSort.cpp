@@ -12,16 +12,18 @@ std::vector<int> QuickSort::sort(std::vector<int> list) {
         stack.pop();
 
         if (l < h) {
-            int p = l + 2; // Choosing the third element as the pivot when possible
-            std::swap(list[p], list[h]);
+            int p = (l + 2 < h) ? l + 2 : h; // Updated pivot choice logic to handle small arrays
+            int pivot = list[p];
+            std::swap(list[p], list[h]); // Move pivot to end for easier partitioning
             int i = l;
+
             for (int j = l; j < h; ++j) {
-                if (list[j] < list[h]) {
+                if (list[j] < pivot) {
                     std::swap(list[i], list[j]);
                     i++;
                 }
             }
-            std::swap(list[i], list[h]);
+            std::swap(list[i], list[h]); // Swap back the pivot to its correct position
 
             stack.push(l);
             stack.push(i - 1);
